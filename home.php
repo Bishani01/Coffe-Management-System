@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suduge The Kade</title>
+<title>Coffee crozy</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-abc123==" crossorigin="anonymous" />
 
@@ -30,6 +30,7 @@
 
   .container {
     background-color: #222;
+    color: #fff;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -182,6 +183,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    color: #333;
   }
 
   .specials-item {
@@ -221,65 +223,85 @@
     margin: 10px;
     border-radius: 5px;
   }
+  .abc{
+    float: right;
+  }
 
 </style>
 </head>
 <body>
-
+<?php
+      // Retrieve the user ID and username from the URL query parameter
+      $user_id = $_GET['user_id'];
+      $first = $_GET['firstname'];
+      ?>
 <header>
     <div class="box">
-        <h1>Suduge Tea Kade</h1>
+      
+        <h1>Coffee Cozy</h1>
         <nav>
+          <div class="abc">
+            <ul>
+              <li><a href="cart.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
+              <li><a href="user.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
+
+            </ul>
+          </div>
           <div>
             <ul>
-                <li><a href="#about">Home</a></li>
+                <li><a href="home.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="menu.php">Menu</a></li>
+                <li><a href="menu.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Menu</a></li>
                 <li><a href="#contact">Contact</a></li>
-
+              
                 
             </ul>
           </div>
-          <div>
-            <ul>
-              <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                <li><a href="#"><i class="fa fa-user"></i></a></li>
-            </ul>
-          </div>
-        </nav>
-        <ul>
           
-        </ul>
+        </nav>
     </div>
 </header>
 
 
 
 <section class="hero">
-    <div class="container">
-        <h2>Welcome to Java Lounge</h2>
-        <p>Your favorite destination for coffee, food, and more.</p>
-        <a href="#menu" class="btn">View Menu</a>
-    </div>
+  <div class="container">
+      <?php
+      
+
+      // Display a welcome message including the user ID and username
+      echo "<h2>Welcome to Coffee Cozy, $first</h2>";
+      ?>
+      <p>Your favorite destination for coffee, food, and more.</p>
+      <a href="#menu" class="btn">View Menu</a>
+  </div>
 </section>
+
 
 <section id="about" class="about">
     <div class="box">
         <h2>About Us</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac justo id elit bibendum accumsan.</p>
+        <p  style="text-align: justify;">Coffee Cozy Café is more than just a place to grab your morning pick-me-up; it's a sanctuary for coffee lovers, a hub of creativity, and a gathering spot for our vibrant community. 
+          From meticulously sourced beans to expertly trained baristas, Coffee Cozy is committed to crafting unforgettable experiences with every sip. 
+          Whether you're seeking a quiet corner to escape with a book, catching up with friends over a latte, or fueling your workday with our signature blends, Coffee Cozy is your home away from home. 
+          With mouthwatering pastries made fresh daily and a warm, welcoming atmosphere, every visit to Bean Bliss is a moment of joy and comfort.
+          Coffee Cozy invites you on a journey of discovery through the rich tapestry of flavors that coffee has to offer. 
+          From single-origin pour-overs to indulgent specialty drinks, there's always something new to delight your senses at our café. 
+          Our dedication to excellence extends to every aspect of your experience, ensuring that each cup is a celebration of life's simple pleasures. 
+          So come on in, take a seat, and savor the moment with us at Coffee Cozy Café, where every cup tells a story and every visit feels like coming home.</p>
     </div>
 </section>
 <section id="specials" class="specials">
   <div class="container">
-      <h2>Specials and Promotions</h2>
+      <h2>Special Offers and Promotions</h2>
       <p>Check out our latest specials and promotions to enjoy great discounts and deals!</p>
       <div class="specials-list">
           <div class="specials-item">
-              <h3>Special Offer 1</h3>
-              <p>Get 20% off on all espresso drinks this weekend!</p>
+              <h3>Special Offer 01</h3>
+              <p>"Enjoy a 20% discount on all espresso beverages this weekend only!"</p>
           </div>
           <div class="specials-item">
-              <h3>Special Offer 2</h3>
+              <h3>Special Offer 02</h3>
               <p>Buy one, get one free on pastries every Friday!</p>
           </div>
           
@@ -291,9 +313,9 @@
   <div class="container">
       <h2>Gallery</h2>
       <div class="gallery-images">
-          <img src="gallery-image1.jpg" alt="Gallery Image 1">
-          <img src="gallery-image2.jpg" alt="Gallery Image 2">
-          <img src="gallery-image3.jpg" alt="Gallery Image 3">
+          <img src="gallery01.jpg" alt="Gallery Image 1">
+          <img src="gallery02.jpg" alt="Gallery Image 2">
+          <img src="gallery03.jpg" alt="Gallery Image 3">
           
       </div>
   </div>

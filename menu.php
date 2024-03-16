@@ -5,58 +5,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java Lounge - Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    background-image: url('back.jpg');
+    background-size: cover;
+    background-position: center;
+}
 
-        .container {
-            background-color: #222;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
 
-        header {
-            background-color: #222;
-            color: #fff;
-            padding: 20px 0;
-        }
+  .container {
+    background-color: #222;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-        header h1 {
-            font-size: 36px;
-        }
+  .box {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-        nav ul {
-            list-style: none;
-            text-align: center;
-        }
+  header {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+  }
 
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
+  header h1 {
+    font-size: 36px;
+  }
 
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+  nav ul {
+    list-style: none;
+    text-align: center;
+  }
 
-        nav ul li a:hover {
-            color: #ffc107;
-        }
+  nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
 
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    color: #ffc107;
+  }
         .menu-container {
             display: flex;
             flex-wrap: wrap;
@@ -153,25 +164,47 @@
 .btn:hover {
     background-color: #ffca28;
 }
+.abc{
+    float: right;
+  }
 
     </style>
 </head>
 
 <body>
 
-    <header>
-        <div class="container">
-            <h1>Java Lounge</h1>
-            <nav>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<?php
+      // Retrieve the user ID and username from the URL query parameter
+      $user_id = $_GET['user_id'];
+      $first = $_GET['firstname'];
+      ?>
+
+<header>
+    <div class="box">
+      
+        <h1>Coffee Cozy</h1>
+        <nav>
+          <div class="abc">
+            <ul>
+              <li><a href="cart.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
+              <li><a href="user.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
+
+            </ul>
+          </div>
+          <div>
+            <ul>
+                <li><a href="home.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Menu</a></li>
+                <li><a href="#contact">Contact</a></li>
+              
+                
+            </ul>
+          </div>
+          
+        </nav>
+    </div>
+</header>
     <br>
     <section class="menu">
     <div class="menui-container">
@@ -220,30 +253,55 @@ $conn->close();
 
 
 <script>
+    let itemObj = null;
+    let itemList = [];
+
     function showItemDetails(name, description, price, image) {
-    const itemTitle = document.getElementById('itemTitle');
-    const itemDescription = document.getElementById('itemDescription');
-    const itemPrice = document.getElementById('itemPrice');
-    const itemImage = document.getElementById('itemImage');
+        const itemTitle = document.getElementById('itemTitle');
+        const itemDescription = document.getElementById('itemDescription');
+        const itemPrice = document.getElementById('itemPrice');
+        const itemImage = document.getElementById('itemImage');
 
-    itemTitle.innerText = name;
-    itemDescription.innerText = description;
-    itemPrice.innerText = 'Price: Rs.' + price;
-    itemImage.src = image;
+        itemTitle.innerText = name;
+        itemDescription.innerText = description;
+        itemPrice.innerText = 'Price: Rs.' + price;
+        itemImage.src = image;
 
-    document.getElementById('itemDetailsModal').style.display = 'block';
-}
-
+        document.getElementById('itemDetailsModal').style.display = 'block';
+        itemObj = {
+            name: name,
+            description: description,
+            price: price,
+            image: image,
+            quantity: 1
+        };
+    }
 
     function closeItemDetailsModal() {
         document.getElementById('itemDetailsModal').style.display = 'none';
     }
 
     function addToCart() {
-        // Logic to add item to cart goes here
-        alert('Item added to cart!');
+        const existingItemIndex = itemList.findIndex(item => 
+            item.name === itemObj.name &&
+            item.description === itemObj.description &&
+            item.price === itemObj.price &&
+            item.image === itemObj.image
+        );
+
+        if (existingItemIndex !== -1) {
+            itemList[existingItemIndex].quantity += 1;
+        } else {
+            itemList.push(itemObj);
+        }
+
+        localStorage.setItem('cartItems', JSON.stringify(itemList));
+        console.log(localStorage.getItem('cartItems'));
+        alert("added")
     }
 </script>
+
+
 
 
 </body>

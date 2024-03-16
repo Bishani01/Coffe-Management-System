@@ -10,11 +10,16 @@ body {
 .container {
     width: 90%; 
     max-width: 400px;
-    margin: 50px 5% 0;
+    margin: 50px auto 0; /* Updated margin to center vertically and horizontally */
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+form {
+    margin: 0 auto; /* Align the form center */
 }
 
 h2 {
