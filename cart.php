@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopping Cart - Coffee Kade</title>
+<link rel="icon" type="image/png" href="favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-abc123==" crossorigin="anonymous" />
 
@@ -208,7 +209,7 @@
 <body>
 <?php
       // Retrieve the user ID and username from the URL query parameter
-      $user_id = $_GET['user_id'];
+      $id = $_GET['id'];
       $first = $_GET['firstname'];
       ?>
 
@@ -218,16 +219,16 @@
             <nav>
               <div class="abc">
                 <ul>
-                  <li><a href="cart.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
-                    <li><a href="user.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
+                  <li><a href="cart.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
+                    <li><a href="user.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
                 </ul>
               </div>
               <div>
                 <ul>
-                    <li><a href="home.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="menu.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Menu</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="home.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">Home</a></li>
+                    <li><a href="about.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">About</a></li>
+                    <li><a href="menu.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">Menu</a></li>
+                   
                   
                     
                 </ul>
@@ -258,7 +259,7 @@
             <a href="#">Terms of Service</a>
         </div>
         <div class="footer-info">
-            <p>&copy; 2024 Java Lounge. All rights reserved.</p>
+             <p>&copy; 2024 Coffee Crozy. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -291,7 +292,7 @@ itemList.forEach(item => {
     cartItemDetailsDiv.appendChild(productDetailsDiv);
     const cartItemPriceDiv = document.createElement('div');
     cartItemPriceDiv.classList.add('cart-item-price');
-    cartItemPriceDiv.textContent = `$${item.price.toFixed(2)}`;
+    cartItemPriceDiv.textContent = `Rs.${item.price.toFixed(2)}`;
 
     cartItemDiv.appendChild(cartItemDetailsDiv);
     cartItemDiv.appendChild(cartItemPriceDiv);

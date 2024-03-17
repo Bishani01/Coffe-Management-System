@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java Lounge - Menu</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         
@@ -65,6 +66,8 @@
     transition: color 0.3s ease;
   }
 
+  
+
   nav ul li a:hover {
     color: #ffc107;
   }
@@ -79,6 +82,10 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            
+        }
+        .menui-container h2{
+            color:#fff;
         }
 
         .menu-item {
@@ -90,13 +97,16 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             transition: background-color 0.3s ease;
+            
         }
 
         .menu-item h2 {
             margin-top: 0;
             margin-bottom: 10px;
+            color:#222;
             
         }
+        
 
         .menu-item p {
             margin: 0;
@@ -174,9 +184,12 @@
 <body>
 
 <?php
-      // Retrieve the user ID and username from the URL query parameter
-      $user_id = $_GET['user_id'];
-      $first = $_GET['firstname'];
+      $is_logged_in = isset($_GET['id']) && isset($_GET['firstname']);
+      if ($is_logged_in) {
+        $id = $_GET['id'];
+        $first = $_GET['firstname'];
+        // Now you can safely use $id and $first
+    }
       ?>
 
 <header>
@@ -186,18 +199,37 @@
         <nav>
           <div class="abc">
             <ul>
-              <li><a href="cart.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
-              <li><a href="user.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
+            <?php if (!$is_logged_in) { ?>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="Regitration.html">Sign Up</a></li>
+              
+            <?php } ?>
+            
+            <?php if ($is_logged_in) { ?>
+              <li><a href="cart.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
+              <li><a href="user.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
+            <?php } ?>
+              
+             
 
             </ul>
           </div>
           <div>
             <ul>
-                <li><a href="home.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="menu.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Menu</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <?php if ($is_logged_in) { ?>
+              <li><a href="home.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">Home</a></li>
+              <li><a href="about.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">About</a></li>
+                <li><a href="menu.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">Menu</a></li>
+                
+            <?php } ?>
+            <?php if (!$is_logged_in) { ?>
+              <li><a href="home.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="menu.php">Menu</a></li>
               
+              
+            <?php } ?>
+               
                 
             </ul>
           </div>
@@ -222,7 +254,7 @@ if ($result->num_rows > 0) {
         echo '<h2>' . htmlspecialchars($row["name"]) . '</h2>';
         echo '<img src="' . htmlspecialchars($row["image"]) . '" alt="' . htmlspecialchars($row["name"]) . '" style="max-width: 100%;">';
         echo '<p>' . htmlspecialchars($row["description"]) . '</p>';
-        echo '<p>Price: Rs.' . htmlspecialchars($row["price"]) . '</p>';
+        echo '<b><p>Price: Rs.' . htmlspecialchars($row["price"]) . '</p></b>';
         echo '</div>';
     }
 } else {
@@ -244,8 +276,16 @@ $conn->close();
         <h2 id="itemTitle"></h2>
         <img id="itemImage" src="" alt="Item Image" style="max-width: 100%; height: auto;">
         <p id="itemDescription"></p>
-        <p id="itemPrice"></p>
-        <button class="btn" onclick="addToCart()">Add to Cart</button>
+        <b><p id="itemPrice"></p></b>
+        <?php if (!$is_logged_in) { ?>
+            <button class="btn" onclick="redirectToLogin()">Add to Cart</button>
+              
+            <?php } ?>
+            <?php if ($is_logged_in) { ?>
+            <button class="btn" onclick="addToCart()">Add to Cart</button>
+              
+            <?php } ?>
+        
         <button class="btn cancel" onclick="closeItemDetailsModal()">Cancel</button>
     </div>
 </div>
@@ -255,6 +295,11 @@ $conn->close();
 <script>
     let itemObj = null;
     let itemList = [];
+
+    function redirectToLogin() {
+        
+        window.location.href = "login.html";
+    }
 
     function showItemDetails(name, description, price, image) {
         const itemTitle = document.getElementById('itemTitle');
@@ -297,7 +342,7 @@ $conn->close();
 
         localStorage.setItem('cartItems', JSON.stringify(itemList));
         console.log(localStorage.getItem('cartItems'));
-        alert("added")
+        alert("Item Added to Cart")
     }
 </script>
 

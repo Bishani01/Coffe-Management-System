@@ -51,7 +51,7 @@
 <body>
 
 <div class="container">
-  <form action="login.php" method="post">
+  <form action="adminlogin.php" method="post">
     <h2>Login</h2>
     <label for="username">Username</label>
     <input type="text" id="username" name="username" required>
@@ -59,16 +59,13 @@
     <input type="password" id="password" name="password" required>
     <input type="submit" value="Login">
   </form>
-  
-    <p>Don't have an account? <a href="Regitration.html">Register here</a></p>
-    <p><a href="adminlogin.html">Are you an admin?</a></p>
+  <p><a href="login.html">Are you an User?</a></p>
+ 
+    
   
 </div>
 
-<div id="customAlert">
-  <p>Registration Successful!</p>
-  <button id="customAlertButton">OK</button>
-</div>
+
 
 <script>
   window.onload = function() {

@@ -16,11 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_num_rows($result) > 0) {
        
         $row = mysqli_fetch_assoc($result);
-        $user_id = $row['id'];
+        $id = $row['id'];
         $first=$row['firstname'];
         
        
-        header("location: home.php?user_id=$user_id&firstname=$first");
+        header("location: home.php?id=$id&firstname=$first");
         exit(); 
         
     } else {

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coffee crozy</title>
+<link rel="icon" type="image/png" href="favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-abc123==" crossorigin="anonymous" />
 
@@ -34,6 +35,14 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+  }
+  .acontainer{
+    background-color: #fff;
+    color: #222;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    
   }
 
   .box {
@@ -73,7 +82,7 @@
   }
 
   .hero {
-    background-image: url('coffee-background.jpg');
+    background-image: url('back.jpg');
     background-size: cover;
     background-position: center;
     color: #fff;
@@ -210,6 +219,7 @@
   .gallery h2 {
     font-size: 36px;
     margin-bottom: 20px;
+    text-align: center;
   }
 
   .gallery-images {
@@ -231,9 +241,12 @@
 </head>
 <body>
 <?php
-      // Retrieve the user ID and username from the URL query parameter
-      $user_id = $_GET['user_id'];
-      $first = $_GET['firstname'];
+      $is_logged_in = isset($_GET['id']) && isset($_GET['firstname']);
+      if ($is_logged_in) {
+        $id = $_GET['id'];
+        $first = $_GET['firstname'];
+      
+    }
       ?>
 <header>
     <div class="box">
@@ -242,18 +255,38 @@
         <nav>
           <div class="abc">
             <ul>
-              <li><a href="cart.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
-              <li><a href="user.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
+            <?php if (!$is_logged_in) { ?>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="Regitration.html">Sign Up</a></li>
+              
+            <?php } ?>
+            
+            <?php if ($is_logged_in) { ?>
+              <li><a href="cart.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>"><i class="fa fa-shopping-cart"></i></a></li>
+              <li><a href="user.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>"><i class="fa fa-user"></i></a></li>
+              <li><a href="login.html">Log Out</a></li>
+            <?php } ?>
+              
+             
 
             </ul>
           </div>
           <div>
             <ul>
-                <li><a href="home.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="menu.php?user_id=<?php echo $user_id; ?>&firstname=<?php echo$first?>">Menu</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <?php if ($is_logged_in) { ?>
+              <li><a href="home.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">Home</a></li>
+                <li><a href="about.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">About</a></li>
+                <li><a href="menu.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>">Menu</a></li>
+                
+            <?php } ?>
+            <?php if (!$is_logged_in) { ?>
+              <li><a href="home.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="menu.php">Menu</a></li>
+               
               
+            <?php } ?>
+               
                 
             </ul>
           </div>
@@ -266,17 +299,53 @@
 
 <section class="hero">
   <div class="container">
-      <?php
-      
+  <?php if ($is_logged_in) { ?>
+    <h2>Welcome to Coffee Cozy, <?php echo $first; ?></h2>
+<?php } ?>
 
-      // Display a welcome message including the user ID and username
-      echo "<h2>Welcome to Coffee Cozy, $first</h2>";
+       <?php if(!$is_logged_in) { ?>
+      <h2>Welcome to Coffee Cozy</h2>
+      <?php } 
       ?>
       <p>Your favorite destination for coffee, food, and more.</p>
-      <a href="#menu" class="btn">View Menu</a>
+      <a href="menu.php?id=<?php echo $id; ?>&firstname=<?php echo$first?>" class="btn">View Menu</a>
   </div>
 </section>
 
+
+
+<section id="specials" class="specials">
+  <div class="container">
+      <h2>Special Offers and Promotions</h2>
+      <p>Check out our latest specials and promotions to enjoy great discounts and deals!</p>
+      <div class="specials-list">
+          <div class="specials-item">
+              <h3>Special Offer 01</h3>
+              <p>Enjoy a 20% discount on all espresso beverages this weekend only!</p>
+          </div>
+          <div class="specials-item">
+              <h3>Special Offer 02</h3>
+              <p>Buy one, get one free on pastries every Friday!</p>
+          </div>
+          
+      </div>
+  </div>
+</section>
+
+<section id="gallery" class="gallery">
+  <div class="acontainer">
+      <h2>Gallery</h2>
+      <div class="gallery-images">
+          <img src="img/gallery01.jpg" alt="Image1">
+          <img src="img/gallery02.jpg" alt="Image2">
+          <img src="img/gallery03.jpg" alt="Image3">
+          <img src="img/gallery04.jpg" alt="Image4">
+          <img src="img/gallery05.jpg" alt="Image5">
+          <img src="img/gallery06.jpg" alt="Image6">
+          
+      </div>
+  </div>
+</section>
 
 <section id="about" class="about">
     <div class="box">
@@ -291,35 +360,6 @@
           So come on in, take a seat, and savor the moment with us at Coffee Cozy Café, where every cup tells a story and every visit feels like coming home.</p>
     </div>
 </section>
-<section id="specials" class="specials">
-  <div class="container">
-      <h2>Special Offers and Promotions</h2>
-      <p>Check out our latest specials and promotions to enjoy great discounts and deals!</p>
-      <div class="specials-list">
-          <div class="specials-item">
-              <h3>Special Offer 01</h3>
-              <p>"Enjoy a 20% discount on all espresso beverages this weekend only!"</p>
-          </div>
-          <div class="specials-item">
-              <h3>Special Offer 02</h3>
-              <p>Buy one, get one free on pastries every Friday!</p>
-          </div>
-          
-      </div>
-  </div>
-</section>
-
-<section id="gallery" class="gallery">
-  <div class="container">
-      <h2>Gallery</h2>
-      <div class="gallery-images">
-          <img src="gallery01.jpg" alt="Gallery Image 1">
-          <img src="gallery02.jpg" alt="Gallery Image 2">
-          <img src="gallery03.jpg" alt="Gallery Image 3">
-          
-      </div>
-  </div>
-</section>
 
 <footer>
     <div class="container">
@@ -333,7 +373,7 @@
             <a href="#">Terms of Service</a>
         </div>
         <div class="footer-info">
-            <p>&copy; 2024 Java Lounge. All rights reserved.</p>
+            <p>&copy; 2024 Coffee Crozy. All rights reserved.</p>
         </div>
     </div>
 </footer>

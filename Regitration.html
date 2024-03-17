@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="regitration.css">
 </head>
 <body>
     <div class="container">
         <form action="registration.php" method="post">
           <h2>Registration Form</h2>
-          <label for="fitname">First Name</label>
-          <input type="text" id="fitname" name="fitname" required autocomplete="off">
+          <label for="firstname">First Name</label>
+          <input type="text" id="firstname" name="firstname" required autocomplete="off">
           <label for="surname">Surname</label>
           <input type="text" id="surname" name="surname" required autocomplete="off">
           <label for="username">Username</label>
@@ -20,9 +21,33 @@
           <input type="email" id="email" name="email" required autocomplete="off">
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required autocomplete="off">
+          <label for="conpassword">Confirm Password</label>
+          <input type="password" id="conpassword" name="conpassword" required autocomplete="off">
+          <div id="passwordError" class="error"></div>
           <input type="submit" value="Register">
         </form>
         <p>Already have an account? <a href="login.html">Login here</a></p>
     </div>
+
+    <script>
+        // Function to validate password match
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("conpassword").value;
+            var passwordError = document.getElementById("passwordError");
+    
+            if (password !== confirmPassword) {
+                passwordError.textContent = "Passwords do not match";
+                return false;
+            } else {
+                passwordError.textContent = "";
+                return true;
+            }
+        }
+    
+        // Event listener to trigger validation on input change
+        document.getElementById("password").addEventListener("input", validatePassword);
+        document.getElementById("conpassword").addEventListener("input", validatePassword);
+    </script>
 </body>
 </html>
